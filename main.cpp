@@ -51,6 +51,8 @@ int main()
 					onto = std::stod(num);
 				}
 				
+				else break;
+				
 				switch(op)
 				{
 					case '+': add(onto); break;
