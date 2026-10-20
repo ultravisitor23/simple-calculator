@@ -1,0 +1,4 @@
+cache/
+*.pyc
+Personal Info/
+.env
