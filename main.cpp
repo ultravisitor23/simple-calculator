@@ -1,22 +1,17 @@
 #include <iostream>
+#include <string>
+#include <cctype>
 
 double current = 0;
-
-double ask() 
-{
-	double num;
-	std::cin >> num;
-	return num;
-}
 
 void add(double n) { current+=n; }
 void sub(double n) { current-=n; }
 void mul(double n) { current*=n; }
-void div(double n) { current/=n; }
+void div(double n) { if(n==0)return; current/=n; }
 
 int main()
 {
-    char choice;
+    std::string choice;
 	
 	do
 	{
@@ -35,13 +30,36 @@ int main()
 	
 		std::cin >> choice;
 		
-		switch(choice) 
-		{
-			case '+': add(ask()); break;
-			case '-': sub(ask()); break;
-			case '*': mul(ask()); break;
-			case '/': div(ask()); break;
-			default: break;
+		for (size_t i = 0; i < choice.length(); i++)
+		{			
+			if (choice[i] == '+' || choice[i] == '-' || choice[i] == '*' || choice[i] == '/')
+			{
+				char op = choice[i];
+				double onto;
+				i++;
+				
+				if (std::isdigit(choice[i]))
+				{
+					std::string num = "";
+					while ((std::isdigit(choice[i]) || choice[i] == '.') && i < choice.length())
+					{
+						num += choice[i];
+						i++;
+					}
+					
+					i--;
+					onto = std::stod(num);
+				}
+				
+				switch(op)
+				{
+					case '+': add(onto); break;
+					case '-': sub(onto); break;
+					case '*': mul(onto); break;
+					case '/': div(onto); break;
+					default: break;
+				}
+			}
 		}
-	} while (choice != 'x');
+	} while (choice != "x");
 }
