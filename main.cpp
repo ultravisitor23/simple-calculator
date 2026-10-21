@@ -10,6 +10,7 @@ void add(double n) { current[selectedThread]+=n; }
 void sub(double n) { current[selectedThread]-=n; }
 void mul(double n) { current[selectedThread]*=n; }
 void div(double n) { if(n==0){std::cout << "ERR: Attempted to divide by 0, result ignored." << std::endl; return;} current[selectedThread]/=n; }
+void set(double n) { current[selectedThread]=n;}
 
 int main()
 {
@@ -23,6 +24,7 @@ int main()
 		std::cout << "  -  Subtraction" << std::endl;
 		std::cout << "  *  Multiplication" << std::endl;
 		std::cout << "  /  Division" << std::endl;
+		std::cout << "  =  Set to Value" << std::endl;
 		std::cout << std::endl;
 		std::cout << " THREAD FUNCTIONS" << std::endl;
 		std::cout << "  T  New Thread" << std::endl;
@@ -40,7 +42,7 @@ int main()
 		
 		for (size_t i = 0; i < choice.length(); i++)
 		{			
-			if (choice[i] == '+' || choice[i] == '-' || choice[i] == '*' || choice[i] == '/')
+			if (choice[i] == '+' || choice[i] == '-' || choice[i] == '*' || choice[i] == '/' || choice[i] == '=')
 			{
 				char op = choice[i];
 				double onto;
@@ -89,6 +91,7 @@ int main()
 					case '-': sub(onto); break;
 					case '*': mul(onto); break;
 					case '/': div(onto); break;
+					case '=': set(onto); break;
 					default: break;
 				}
 			}
