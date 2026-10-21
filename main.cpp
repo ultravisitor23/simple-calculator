@@ -2,6 +2,7 @@
 #include <string>
 #include <cctype>
 #include <vector>
+#include <cmath>
 
 std::vector<double> current = {0};
 int selectedThread = 0;
@@ -11,6 +12,7 @@ void sub(double n) { current[selectedThread]-=n; }
 void mul(double n) { current[selectedThread]*=n; }
 void div(double n) { if(n==0){std::cout << "ERR: Attempted to divide by 0, result ignored." << std::endl; return;} current[selectedThread]/=n; }
 void udv(double n) { if(current[selectedThread]==0){std::cout << "ERR: Attempted to divide by 0, result ignored." << std::endl; return;} current[selectedThread]=n/current[selectedThread]; }
+void mod(double n) { current[selectedThread]=std::fmod(current[selectedThread], n); }
 void set(double n) { current[selectedThread]=n;}
 
 int main()
@@ -26,6 +28,7 @@ int main()
 		std::cout << "  *  Multiplication" << std::endl;
 		std::cout << "  /  Division" << std::endl;
 		std::cout << "  :  Division, n by the current number" << std::endl;
+		std::cout << "  %  Modulo" << std::endl;
 		std::cout << "  =  Set to Value" << std::endl;
 		std::cout << std::endl;
 		std::cout << " THREAD FUNCTIONS" << std::endl;
@@ -44,7 +47,7 @@ int main()
 		
 		for (size_t i = 0; i < choice.length(); i++)
 		{			
-			if (choice[i] == '+' || choice[i] == '-' || choice[i] == '*' || choice[i] == '/' || choice[i] == ':' || choice[i] == '=')
+			if (choice[i] == '+' || choice[i] == '-' || choice[i] == '*' || choice[i] == '/' || choice[i] == ':' || choice[i] == '%' || choice[i] == '=')
 			{
 				char op = choice[i];
 				double onto;
@@ -94,6 +97,7 @@ int main()
 					case '*': mul(onto); break;
 					case '/': div(onto); break;
 					case ':': udv(onto); break;
+					case '%': mod(onto); break;
 					case '=': set(onto); break;
 					default: break;
 				}
