@@ -77,7 +77,8 @@ int main()
 						thread = std::stoi(num);
 					}
 					
-					onto = current[thread];
+					if (thread < current.size()) onto = current[thread];
+					else std::cout << "ERR: Attempted to access a thread which was not yet created." << std::endl;
 				}
 				
 				else break;
@@ -114,7 +115,8 @@ int main()
 				
 				else break;
 				
-				selectedThread = onto;
+				if (onto < current.size()) selectedThread = onto;
+				else std::cout << "ERR: Attempted to access a thread which was not yet created." << std::endl;
 			}
 		}
 	} while (choice != "x");
