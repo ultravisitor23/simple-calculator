@@ -125,5 +125,5 @@ int main()
 				else std::cout << "ERR: Attempted to access a thread which was not yet created." << std::endl;
 			}
 		}
-	} while (choice != "x");
+	} while (choice != "x"); //zapri
 }
