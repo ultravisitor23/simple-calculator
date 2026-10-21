@@ -34,7 +34,7 @@ int main()
 		std::cout << " APPLICATION COMMANDS" << std::endl;
 		std::cout << "  x  Exit" << std::endl;
 		std::cout << std::endl;
-		std::cout << "]======CURRENT=VALUES=======[" << std::endl;
+		std::cout << "]=======CURRENT=VALUES=======[" << std::endl;
 		for (int i = 0; i < current.size(); i++)
 			std::cout << " THREAD-" << i << ": " << current[i] << std::endl;
 	
