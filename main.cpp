@@ -1,13 +1,15 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <vector>
 
-double current = 0;
+std::vector<double> current = {0};
+int selectedThread = 0;
 
-void add(double n) { current+=n; }
-void sub(double n) { current-=n; }
-void mul(double n) { current*=n; }
-void div(double n) { if(n==0)return; current/=n; }
+void add(double n) { current[selectedThread]+=n; }
+void sub(double n) { current[selectedThread]-=n; }
+void mul(double n) { current[selectedThread]*=n; }
+void div(double n) { if(n==0)return; current[selectedThread]/=n; }
 
 int main()
 {
@@ -22,11 +24,17 @@ int main()
 		std::cout << "  *  Multiplication" << std::endl;
 		std::cout << "  /  Division" << std::endl;
 		std::cout << std::endl;
+		std::cout << " THREAD FUNCTIONS" << std::endl;
+		std::cout << "  T  New Thread" << std::endl;
+		std::cout << "  tn Switch to Thread n," << std::endl; 
+		std::cout << "   may also be used as a parameter in an operation." << std::endl;
+		std::cout << std::endl;
 		std::cout << " APPLICATION COMMANDS" << std::endl;
 		std::cout << "  x  Exit" << std::endl;
 		std::cout << std::endl;
 		std::cout << "]======CURRENT=VALUES=======[" << std::endl;
-		std::cout << " " << current << std::endl;
+		for (int i = 0; i < current.size(); i++)
+			std::cout << " THREAD-" << i << ": " << current[i] << std::endl;
 	
 		std::cin >> choice;
 		
@@ -51,6 +59,27 @@ int main()
 					onto = std::stod(num);
 				}
 				
+				else if (choice[i] == 't')
+				{
+					double thread;
+					i++;
+				
+					if (std::isdigit(choice[i]))
+					{
+						std::string num = "";
+						while ((std::isdigit(choice[i])) && i < choice.length())
+						{
+							num += choice[i];
+							i++;
+						}
+					
+						i--;
+						thread = std::stoi(num);
+					}
+					
+					onto = current[thread];
+				}
+				
 				else break;
 				
 				switch(op)
@@ -61,6 +90,31 @@ int main()
 					case '/': div(onto); break;
 					default: break;
 				}
+			}
+			
+			else if (choice[i] == 'T') current.push_back(0);
+			
+			else if (choice[i] == 't')
+			{
+				double onto;
+				i++;
+				
+				if (std::isdigit(choice[i]))
+				{
+					std::string num = "";
+					while ((std::isdigit(choice[i])) && i < choice.length())
+					{
+						num += choice[i];
+						i++;
+					}
+					
+					i--;
+					onto = std::stoi(num);
+				}
+				
+				else break;
+				
+				selectedThread = onto;
 			}
 		}
 	} while (choice != "x");
