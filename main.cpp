@@ -9,7 +9,7 @@ int selectedThread = 0;
 void add(double n) { current[selectedThread]+=n; }
 void sub(double n) { current[selectedThread]-=n; }
 void mul(double n) { current[selectedThread]*=n; }
-void div(double n) { if(n==0)return; current[selectedThread]/=n; }
+void div(double n) { if(n==0){std::cout << "ERR: Attempted to divide by 0, result ignored." << std::endl; return;} current[selectedThread]/=n; }
 
 int main()
 {
